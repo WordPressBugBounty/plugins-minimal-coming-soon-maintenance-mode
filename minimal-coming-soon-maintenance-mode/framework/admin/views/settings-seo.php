@@ -15,14 +15,14 @@ if (!defined('WPINC')) {
     <div class="signals-double-group signals-clearfix" id="seotitle">
       <div class="signals-form-group">
         <label for="signals_csmm_title" class="signals-strong">SEO Title</label>
-        <input type="text" name="signals_csmm_title" id="signals_csmm_title" data-site-title="<?php echo esc_html(get_bloginfo('name')); ?>" value="<?php echo esc_html__( stripslashes( $signals_csmm_options['title'] ) ); ?>" placeholder="%sitetitle% is coming soon" class="signals-form-control">
+        <input type="text" name="signals_csmm_title" id="signals_csmm_title" data-site-title="<?php echo esc_html(get_bloginfo('name')); ?>" value="<?php echo esc_html( stripslashes( $signals_csmm_options['title'] ) ); ?>" placeholder="%sitetitle% is coming soon" class="signals-form-control">
         <div class="mm-seo-progress " id="mm-seo-progress-title"><div class="mm-seo-progress-bar"></div></div>
         <p class="signals-form-help-block">Recommended format: <i>Primary Keyword - Secondary Keyword - Brand Name</i> with length up to 60 characters.</p>
       </div>
 
       <div class="signals-form-group">
         <label for="signals_csmm_description" class="signals-strong">Meta Description</label>
-        <textarea type="text" name="signals_csmm_description" id="signals_csmm_description" data-site-description="<?php echo esc_html(get_bloginfo('description')); ?>" rows="3" class="signals-form-control"><?php echo esc_html__( stripslashes( $signals_csmm_options['description'] ) ); ?></textarea>
+        <textarea type="text" name="signals_csmm_description" id="signals_csmm_description" data-site-description="<?php echo esc_html(get_bloginfo('description')); ?>" rows="3" class="signals-form-control"><?php echo esc_html( stripslashes( $signals_csmm_options['description'] ) ); ?></textarea>
         <div class="mm-seo-progress " id="mm-seo-progress-description"><div class="mm-seo-progress-bar"></div></div>
         <p class="signals-form-help-block">Write for humans, not search engines! This text will incite people to click on your site on Google. Length should be 50 - 300 characters.</p>
       </div>
@@ -70,7 +70,7 @@ if (!defined('WPINC')) {
             <span class="signals-preview-area"><img src="<?php echo esc_attr( $signals_csmm_options['social_preview'] ); ?>" /></span>
             <?php else : ?>
             <?php endif; ?>
-          <input type="hidden" name="signals_csmm_social_preview" class="skip-save" id="signals_csmm_social_preview" value="<?php esc_attr_e( $signals_csmm_options['social_preview'] ); ?>">
+          <input type="hidden" name="signals_csmm_social_preview" class="skip-save" id="signals_csmm_social_preview" value="<?php echo esc_attr( $signals_csmm_options['social_preview'] ); ?>">
           <button type="button" name="signals_social_preview_upload" id="signals_social_preview_upload" class="signals-btn signals-upload pro-option" style="margin-top: 4px">Upload / select image</button>
 
           <p class="signals-form-help-block" style="padding: 0 10px;">Site preview image displayed when sharing on Facebook, Twitter and other social networks. Image ratio should be 1:2. Facebook recommends 1200x630px or not smaller than 600x315px. This is a <a href="#pro" class="csmm-change-tab">PRO feature</a>.</p>

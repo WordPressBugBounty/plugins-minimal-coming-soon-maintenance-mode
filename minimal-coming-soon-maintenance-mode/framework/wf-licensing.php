@@ -15,6 +15,7 @@ if (false === class_exists('WF_Licensing_CSMM')) {
     protected $unlimited_installs = 99999;
     public $disable_remote = true;
     public $debug = false;
+    public $filesystem_initialized = false;
 
 
     /**
@@ -55,12 +56,6 @@ if (false === class_exists('WF_Licensing_CSMM')) {
       }
 
       $this->log('__construct', $params, get_object_vars($this));
-
-      add_action('wf_licensing_' . trim($this->prefix, '_') . '_remote_action_refresh', array($this, 'remote_action_refresh'));
-      add_action('wf_licensing_' . trim($this->prefix, '_') . '_remote_action_deactivate_license', array($this, 'remote_action_deactivate_license'));
-      add_action('wf_licensing_' . trim($this->prefix, '_') . '_remote_action_validate_license', array($this, 'remote_action_validate_license'));
-
-      add_action('plugins_loaded', array($this, 'monitor_remote_actions'));
     } // __construct
 
 
@@ -92,7 +87,7 @@ if (false === class_exists('WF_Licensing_CSMM')) {
         'request_data' => array(
           'action' => 'validate_license',
           'license_key' => '',
-          'rand' => rand(1000, 9999),
+          'rand' => wp_rand(1000, 9999),
           'version' => $this->version,
           'wp_version' => get_bloginfo('version'),
           'site_url' => get_home_url(),
@@ -105,98 +100,6 @@ if (false === class_exists('WF_Licensing_CSMM')) {
       wp_localize_script('wf_licensing', 'wf_licensing_' . $this->prefix, $vars);
     } // admin_enqueue_scripts
 
-
-    function monitor_remote_actions()
-    {
-      if ($this->disable_remote || is_admin()) {
-        return;
-      }
-
-      if (!empty($_REQUEST[$this->prefix . '_access_key']) && !empty($_REQUEST[$this->prefix . '_action']) && isset($_REQUEST[$this->prefix . '_action_params'])) {
-        $access_key = substr(trim($_REQUEST[$this->prefix . '_access_key']), 0, 32);
-        $action = substr(trim($_REQUEST[$this->prefix . '_action']), 0, 32);
-        $action_params = $_REQUEST[$this->prefix . '_action_params'];
-        $rand = substr($_REQUEST[$this->prefix . '_rand'], 0, 5);
-        $rand = preg_replace("/[^0-9]/", '', $rand);
-
-        nocache_headers();
-        header('X-WF-Licensing-' . $this->prefix . ': ' . $this->version);
-
-        if (strlen($rand) != 5) {
-          wp_send_json_error('Invalid random value.');
-        }
-
-        if (false == $this->is_active(false, false, true)) {
-          wp_send_json_error('License is not active.');
-        }
-
-        if (false == $this->is_remote_action($action)) {
-          wp_send_json_error('Unknown remote action.');
-        }
-
-        $access_key = preg_replace("/[^0-9a-zA-Z]/", '', $access_key);
-        if (strlen($access_key) != 32) {
-          wp_send_json_error('Invalid access key format.');
-        }
-
-        $license = $this->get_license();
-        if ($access_key != $license['access_key']) {
-          wp_send_json_error('Invalid access key.');
-        }
-
-        $post_data = @json_decode(file_get_contents('php://input'), true);
-        do_action('wf_licensing_' . trim($this->prefix, '_') . '_remote_action_' . $action, $action_params, $this, $post_data);
-
-        wp_send_json_error('Remote action did not execute.');
-        die();
-      }
-    } // monitor_remote_actions
-
-
-    function remote_action_refresh($action_params)
-    {
-      $data = $this->prepare_server_query_data('remote_refresh');
-
-      wp_send_json_success($data);
-    } // remote_action_refresh
-
-
-    function remote_action_validate_license($action_params)
-    {
-      $validate = $this->validate();
-      $license = $this->get_license();
-
-      wp_send_json_success(array('validate' => $validate, 'license' => $license));
-    } // remote_action_validate_license
-
-
-    function remote_action_deactivate_license($action_params)
-    {
-      $license = $this->get_license();
-      $this->update_license(false);
-
-      if ($action_params['keep_license_key']) {
-        $tmp = array('error' => 'License is no longer valid for this site.', 'license_key' => $license['license_key']);
-        $this->update_license($tmp);
-      }
-
-      wp_send_json_success();
-    } // remote_action_deactivate_license
-
-
-    private function is_remote_action($action)
-    {
-      $actions = array('refresh', 'validate_license', 'deactivate_license');
-      $actions = apply_filters('wf_licensing_' . trim($this->prefix, '_') . '_remote_actions', $actions);
-
-      if (in_array($action, $actions)) {
-        return true;
-      } else {
-        return false;
-      }
-    } // is_remote_action
-
-
     /**
      * Log message if debugging is enabled.
      * Log file: /wp-content/wf-licensing.log
@@ -208,23 +111,31 @@ if (false === class_exists('WF_Licensing_CSMM')) {
      */
     function log($message, ...$data)
     {
+      global $wp_filesystem;
+        
       if (!$this->debug) {
         return;
       }
 
-      $log_file = trailingslashit(WP_CONTENT_DIR) . 'wf-licensing.log';
-      $fp = fopen($log_file, 'a+');
+      global $wp_filesystem;
+      $this->wp_init_filesystem();
 
-      fputs($fp, '[' . date('r') . '] ' . $this->prefix . ': ');
-      fputs($fp, (string) $message . PHP_EOL);
-      foreach ($data as $tmp) {
-        fputs($fp, print_r($tmp, true));
+      $log_file = trailingslashit(WP_CONTENT_DIR) . 'wf-licensing.log';
+      
+      if ( ! $wp_filesystem->exists( $log_file ) ) {
+        $wp_filesystem->put_contents( $log_file, '' ); // Create an empty file if it doesn't exist.
       }
 
-      fputs($fp, PHP_EOL);
-      fclose($fp);
-    } // log
+      $log_content = $wp_filesystem->get_contents( $log_file ); // wp_filesystem can't append so we have to read existing content
 
+      $log_content .= '[' . gmdate('r') . '] ' . $this->prefix . ': ';
+      $log_content .= (string) $message . PHP_EOL;
+      foreach ($data as $tmp) {
+        $log_content .= var_export($tmp, true) . PHP_EOL;
+      }
+      $log_content .= PHP_EOL;
+      $wp_filesystem->put_contents( $log_file, $log_content );
+    } // log
 
     /**
      * Fetches license details from the database.
@@ -316,14 +227,14 @@ if (false === class_exists('WF_Licensing_CSMM')) {
         $out['valid_until'] = 'forever';
         $out['recurring'] = false;
       } else {
-        $out['valid_until'] = 'until ' . date(get_option('date_format'), strtotime($license['valid_until']));
+        $out['valid_until'] = 'until ' . gmdate(get_option('date_format'), strtotime($license['valid_until']));
         $out['recurring'] = true;
       }
 
-      if (date('Y-m-d') == $license['valid_until']) {
+      if (gmdate('Y-m-d') == $license['valid_until']) {
         $out['expires'] = 'today';
-      } elseif (date('Y-m-d', time() + 30 * DAY_IN_SECONDS) > $license['valid_until']) {
-        $tmp = (strtotime($license['valid_until'] . date(' G:i:s')) - time()) / DAY_IN_SECONDS;
+      } elseif (gmdate('Y-m-d', time() + 30 * DAY_IN_SECONDS) > $license['valid_until']) {
+        $tmp = (strtotime($license['valid_until'] . gmdate(' G:i:s')) - time()) / DAY_IN_SECONDS;
         $out['expires'] = 'in ' . round($tmp) . ' days';
       } else {
         $out['expires'] = 'in more than 30 days';
@@ -404,7 +315,7 @@ if (false === class_exists('WF_Licensing_CSMM')) {
 
       if (
         !empty($license['license_key']) && !empty($license['name']) &&
-        !empty($license['valid_until']) && $license['valid_until'] >= date('Y-m-d')
+        !empty($license['valid_until']) && $license['valid_until'] >= gmdate('Y-m-d')
       ) {
         if (!empty($feature)) {
           if (!empty($license['meta'][$feature]) && filter_var($license['meta'][$feature], FILTER_VALIDATE_BOOLEAN) == true) {
@@ -561,21 +472,26 @@ if (false === class_exists('WF_Licensing_CSMM')) {
     function validate_ajax()
     {
       check_ajax_referer('wf_licensing_' . $this->prefix);
-
+      
       if (false === current_user_can('manage_options')) {
         wp_die('Sorry, you have to be an admin to run this action.');
       }
 
-      $license_key = trim($_REQUEST['license_key']);
+      if(!isset($_REQUEST['license_key'])){
+          wp_send_json_error('Missing license key');
+      }
+
+      $license_key = sanitize_text_field(wp_unslash($_REQUEST['license_key']));
+      $license_key = trim(substr($license_key, 0, 64));
       if (empty($license_key)) {
         $this->update_license(false);
-        do_action('wf_licensing_' . $this->prefix . 'validate_ajax', $license_key, false);
+        do_action('wf_licensing_' . $this->prefix . '_validate_ajax', $license_key, false);
 
         wp_send_json_success();
       } else {
         $result = $this->validate($license_key);
         $license = $this->get_license();
-        do_action('wf_licensing_' . $this->prefix . 'validate_ajax', $license_key, $result);
+        do_action('wf_licensing_' . $this->prefix . '_validate_ajax', $license_key, $result);
 
         if ($result == true) {
           wp_send_json_success($result);
@@ -608,16 +524,28 @@ if (false === class_exists('WF_Licensing_CSMM')) {
       if (false === current_user_can('manage_options')) {
         wp_die('Sorry, you have to be an admin to run this action.');
       }
-      
-      $out['license_key'] = trim(sanitize_text_field($_POST['license_key']));
 
-      if (sanitize_text_field($_POST['success']) == 'true') {
-        $out['error'] = trim(sanitize_text_field($_POST['data']['error']));
-        $out['name'] = trim(sanitize_text_field($_POST['data']['name']));
-        $out['valid_until'] = trim(sanitize_text_field($_POST['data']['valid_until']));
-        $out['meta'] = sanitize_text_field($_POST['data']['meta']);
+      if(!isset($_POST['license_key'])){
+        wp_send_json_error('Missing license key');
+      }
+
+      $license_key = sanitize_text_field(wp_unslash($_POST['license_key']));
+      $license_key = trim(substr($license_key, 0, 64));
+      $out['license_key'] = $license_key;
+
+      if(isset($_POST['data'])){
+        $data = array_map('sanitize_text_field', wp_unslash($_POST['data']));
       } else {
-        $out['error'] = trim(sanitize_text_field($_POST['data']));
+        $data = array();
+      }
+
+      if (isset($_POST['success']) && sanitize_text_field(wp_unslash($_POST['success'])) == 'true') {
+        $out['error'] = sanitize_text_field($data['error']);
+        $out['name'] = sanitize_text_field($data['name']);
+        $out['valid_until'] = sanitize_text_field($data['valid_until']);
+        $out['meta'] = sanitize_text_field($data['meta']);
+      } else {
+        $out['error'] = sanitize_text_field($data);
         $out['name'] = '';
         $out['valid_until'] = '';
         $out['meta'] = array();
@@ -625,7 +553,7 @@ if (false === class_exists('WF_Licensing_CSMM')) {
       $out['last_check'] = time();
 
       $this->update_license($out);
-      do_action('wf_licensing_' . $this->prefix . 'save_ajax', $out);
+      do_action('wf_licensing_' . $this->prefix . '_save_ajax', $out);
 
       wp_send_json_success();
     } // save_ajax
@@ -638,7 +566,7 @@ if (false === class_exists('WF_Licensing_CSMM')) {
       $query_data = array(
         'action' => $action,
         'license_key' => $license['license_key'],
-        'rand' => rand(1000, 9999),
+        'rand' => wp_rand(1000, 9999),
         'version' => $this->version,
         'wp_version' => get_bloginfo('version'),
         'site_url' => get_home_url(),
@@ -697,5 +625,24 @@ if (false === class_exists('WF_Licensing_CSMM')) {
         return $result;
       }
     } // query_licensing_server
+
+    /**
+     * Initializes the WordPress filesystem.
+     *
+     * @return bool
+     */
+    function wp_init_filesystem()
+    {
+        if (! $this->filesystem_initialized) {
+            if (! class_exists('WP_Filesystem')) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+            }
+
+            WP_Filesystem();
+            $this->filesystem_initialized = true;
+        }
+
+        return true;
+    }
   } // WF_Licensing_CSMM
 } // if WF_Licensing_CSMM

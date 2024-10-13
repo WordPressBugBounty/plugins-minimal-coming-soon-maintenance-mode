@@ -117,7 +117,7 @@ require_once 'header.php';
                 <p class="footer-buttons-left">
                     <?php wp_nonce_field('csmm_save_settings', 'csmm_save_nonce'); ?>
                     <button type="submit" name="signals_csmm_submit" class="signals-btn signals-btn-red"><strong><?php esc_attr_e('Save Changes', 'minimal-coming-soon-maintenance-mode'); ?></strong></button>
-                    <a id="csmm-preview" style="margin: 0 0 0 15px;" href="<?php echo esc_url(home_url()); ?>/?preview_coming_soon" class="signals-btn" target="_blank"><strong><?php esc_attr_e('Preview Maintenance Page', 'minimal-coming-soon-maintenance-mode'); ?></strong></a>
+                    <a id="csmm-preview" style="margin: 0 0 0 15px;" href="<?php echo esc_url(wp_nonce_url(home_url() . '/?preview_coming_soon', 'csmm_preview')); ?>" class="signals-btn" target="_blank"><strong><?php esc_attr_e('Preview Maintenance Page', 'minimal-coming-soon-maintenance-mode'); ?></strong></a>
                     <a title="Check out 70+ pixel perfect themes and other great PRO features" style="margin: 0 0 0 15px;" href="#pro" class="signals-btn csmm-change-tab" target="_blank"><span style="font-size: 19px;" class="dashicons dashicons-star-filled"></span> <strong><?php esc_attr_e('Go PRO', 'minimal-coming-soon-maintenance-mode'); ?></strong> <span style="font-size: 19px;" class="dashicons dashicons-star-filled"></span></a>
                 </p>
                 <p class="footer-buttons-right">

@@ -22,11 +22,17 @@ if (!defined('WPINC')) {
 			</p>
 
 <?php
+  if(isset($_SERVER['REQUEST_URI'])){
+    $redirect_url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+  } else {
+    $redirect_url = '';
+  }
+
   if ($signals_csmm_options['status']== '1') {
-    $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'disabled', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
+    $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'disabled', 'redirect' => urlencode($redirect_url)), admin_url('admin.php'));
     $action_url = wp_nonce_url($action_url, 'csmm_change_status');
   } else {
-    $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'enabled', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
+    $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'enabled', 'redirect' => urlencode($redirect_url)), admin_url('admin.php'));
     $action_url = wp_nonce_url($action_url, 'csmm_change_status');
   }
 

@@ -2345,7 +2345,12 @@ array_unshift($themes, array('name' => 'Default', 'name_clean' => 'default', 'st
       echo '<a href="#pro" class="signals-btn csmm-change-tab">Get this theme</a>&nbsp; &nbsp;';
       echo '<a target="_blank" class="signals-btn signals-btn-secondary" href="' . esc_url(csmm_generate_web_link('preview-theme-' . $theme['name_clean'], 'theme-preview', array('theme' => $theme['name_clean']))) . '">Preview</a>';
     } else {
-      echo '<a href="' . esc_url(add_query_arg(array('action' => 'csmm_activate_theme', 'theme' => $theme['name_clean'], 'redirect' => urlencode($_SERVER['REQUEST_URI']), '_wpnonce' => wp_create_nonce('csmm_activate_theme')), admin_url('admin.php'))) . '" class="signals-btn confirm-action" data-confirm="Are you sure you want to activate the selected theme? Customizations you made on the current design will be lost.">Activate</a>&nbsp; &nbsp;';
+      if(isset($_SERVER['REQUEST_URI'])){
+        $redirect_url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+      } else {
+        $redirect_url = '';
+      }
+      echo '<a href="' . esc_url(add_query_arg(array('action' => 'csmm_activate_theme', 'theme' => $theme['name_clean'], 'redirect' => urlencode($redirect_url), '_wpnonce' => wp_create_nonce('csmm_activate_theme')), admin_url('admin.php'))) . '" class="signals-btn confirm-action" data-confirm="Are you sure you want to activate the selected theme? Customizations you made on the current design will be lost.">Activate</a>&nbsp; &nbsp;';
     }
     echo '</span>';
     if ($theme['status'] != 'free') {

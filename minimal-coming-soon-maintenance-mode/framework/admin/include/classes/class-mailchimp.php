@@ -198,55 +198,56 @@ class Signals_MailChimp {
     
             $response = $this->prepareStateForRequest($http_verb, $method, $url, $timeout);
     
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            //phpcs:ignore because cURL is used for the extra configuration options compared to wp_remote_get()
+            $ch = curl_init(); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_URL, $url); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array( //phpcs:ignore
                 'Accept: application/vnd.api+json',
                 'Content-Type: application/vnd.api+json',
                 'Authorization: apikey ' . $this->api_key
             ));
-            curl_setopt($ch, CURLOPT_USERAGENT, 'DrewM/MailChimp-API/3.0 (github.com/drewm/mailchimp-api)');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_VERBOSE, true);
-            curl_setopt($ch, CURLOPT_HEADER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verify_ssl);
-            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-            curl_setopt($ch, CURLOPT_ENCODING, '');
-            curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'DrewM/MailChimp-API/3.0 (github.com/drewm/mailchimp-api)'); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_VERBOSE, true); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_HEADER, true); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verify_ssl); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0); //phpcs:ignore
+            curl_setopt($ch, CURLOPT_ENCODING, ''); //phpcs:ignore
+            curl_setopt($ch, CURLINFO_HEADER_OUT, true); //phpcs:ignore
     
             switch ($http_verb) {
                 case 'post':
-                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_POST, true); //phpcs:ignore
                     $this->attachRequestPayload($ch, $args);
                     break;
     
                 case 'get':
                     $query = http_build_query($args, '', '&');
-                    curl_setopt($ch, CURLOPT_URL, $url . '?' . $query);
+                    curl_setopt($ch, CURLOPT_URL, $url . '?' . $query); //phpcs:ignore
                     break;
     
                 case 'delete':
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE'); //phpcs:ignore
                     break;
     
                 case 'patch':
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); //phpcs:ignore
                     $this->attachRequestPayload($ch, $args);
                     break;
     
                 case 'put':
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT'); //phpcs:ignore
                     $this->attachRequestPayload($ch, $args);
                     break;
             }
     
-            $responseContent     = curl_exec($ch);
-            $response['headers'] = curl_getinfo($ch);
+            $responseContent     = curl_exec($ch); //phpcs:ignore
+            $response['headers'] = curl_getinfo($ch); //phpcs:ignore
             $response            = $this->setResponseState($response, $responseContent, $ch);
             $formattedResponse   = $this->formatResponse($response);
     
-            curl_close($ch);
+            curl_close($ch); //phpcs:ignore
     
             $this->determineSuccess($response, $formattedResponse, $timeout);
     
@@ -354,7 +355,9 @@ class Signals_MailChimp {
         {
             $encoded = json_encode($data);
             $this->last_request['body'] = $encoded;
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $encoded);
+
+            //phpcs:ignore because cURL is used for the extra configuration options compared to wp_remote_get()
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $encoded); //phpcs:ignore
         }
     
         /**
@@ -381,8 +384,10 @@ class Signals_MailChimp {
          */
         private function setResponseState($response, $responseContent, $ch)
         {
+            //phpcs:ignore
             if ($responseContent === false) {
-                $this->last_error = curl_error($ch);
+                //phpcs:ignore because cURL is used for the extra configuration options compared to wp_remote_get()
+                $this->last_error = curl_error($ch); //phpcs:ignore
             } else {
     
                 $headerSize = $response['headers']['header_size'];

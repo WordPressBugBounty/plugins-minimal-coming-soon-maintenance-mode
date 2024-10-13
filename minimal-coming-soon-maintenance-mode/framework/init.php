@@ -18,7 +18,7 @@ class CSMM {
   static function admin_bar_style() {
     $options = csmm_get_options();
 
-    if (isset($_POST['signals_csmm_submit'])) {
+    if (isset($_POST['signals_csmm_submit']) && isset($_POST['csmm_save_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['csmm_save_nonce'])), 'csmm_save_settings')) {
       $options['disable_adminbar'] = isset($_POST['signals_csmm_disable_adminbar']);
     }
 
@@ -39,7 +39,7 @@ class CSMM {
     global $wp_admin_bar;
     $options = csmm_get_options();
 
-    if (isset($_POST['signals_csmm_submit'])) {
+    if (isset($_POST['signals_csmm_submit']) && isset($_POST['csmm_save_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['csmm_save_nonce'])), 'csmm_save_settings')) {
       $options['disable_adminbar'] = isset($_POST['signals_csmm_disable_adminbar']);
     }
 
@@ -53,18 +53,23 @@ class CSMM {
     if (isset($_POST['signals_csmm_submit'])) {
       $options['status'] = (string) (int) !empty($_POST['signals_csmm_status']);
     }
+    if(isset($_SERVER['REQUEST_URI'])){
+      $redirect_url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+    } else {
+      $redirect_url = '';
+    }
 
     if ($options['status'] == '1') {
       $main_label = '<img src="' . CSMM_URL . '/framework/admin/img/mm-icon.png" alt="' . __('Maintenance mode is enabled', 'minimal-coming-soon-maintenance-mode') . '" title="' . __('Maintenance mode is enabled', 'minimal-coming-soon-maintenance-mode') . '"> <span class="ab-label">' . __('Maintenance Mode', 'minimal-coming-soon-maintenance-mode') . ' <i class="csmm-status-dot csmm-status-dot-enabled">&#9679;</i></span>';
       $class = 'csmm-enabled';
-      $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'disabled', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
+      $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'disabled', 'redirect' => urlencode($redirect_url)), admin_url('admin.php'));
       $action_url = wp_nonce_url($action_url, 'csmm_change_status');
       $action = __('Maintenance mode', 'minimal-coming-soon-maintenance-mode');
       $action .= '<a href="' . $action_url . '" id="csmm-status-wrapper" class="on"><span id="csmm-status-off" class="csmm-status-btn">OFF</span><span id="csmm-status-on" class="csmm-status-btn">ON</span></a>';
     } else {
       $main_label = '<img src="' . CSMM_URL . '/framework/admin/img/mm-icon.png" alt="' . __('Maintenance mode is disabled', 'minimal-coming-soon-maintenance-mode') . '" title="' . __('Maintenance mode is disabled', 'minimal-coming-soon-maintenance-mode') . '"> <span class="ab-label">' . __('Maintenance Mode', 'minimal-coming-soon-maintenance-mode') . ' <i class="csmm-status-dot csmm-status-dot-disabled">&#9679;</i></span>';
       $class = 'csmm-disabled';
-      $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'enabled', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
+      $action_url = add_query_arg(array('action' => 'csmm_change_status', 'new_status' => 'enabled', 'redirect' => urlencode($redirect_url)), admin_url('admin.php'));
       $action_url = wp_nonce_url($action_url, 'csmm_change_status');
       $action = __('Maintenance mode', 'minimal-coming-soon-maintenance-mode');
       $action .= '<a href="' . $action_url . '" id="csmm-status-wrapper" class="off"><span id="csmm-status-off" class="csmm-status-btn">OFF</span><span id="csmm-status-on" class="csmm-status-btn">ON</span></a>';
@@ -86,7 +91,7 @@ class CSMM {
     $wp_admin_bar->add_node( array(
       'id'     => 'csmm-preview',
       'title'  => 'Preview',
-      'href'   => home_url() . '/?preview_coming_soon',
+      'href'   => wp_nonce_url(home_url() . '/?preview_coming_soon', 'csmm_preview'),
       'parent' => 'csmm',
       'meta'   => array('target' => '_blank')
     ));
@@ -119,7 +124,7 @@ class CSMM {
     update_option('signals_csmm_options', $options);
 
     if (!empty($_GET['redirect'])) {
-      wp_safe_redirect(esc_url($_GET['redirect']));
+      wp_safe_redirect(sanitize_url(wp_unslash($_GET['redirect'])));
     } else {
       wp_safe_redirect(admin_url());
     }
@@ -249,6 +254,12 @@ class CSMM {
             'data-*' => true,
             'multiple' => true,
             'disabled' => true
+        );
+
+        $allowed_tags['strong'] = array(
+            'type' => true,
+            'style' => true,
+            'class' => true
         );
 
         $allowed_tags['option'] = array(

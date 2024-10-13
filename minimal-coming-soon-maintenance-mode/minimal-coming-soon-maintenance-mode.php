@@ -3,7 +3,7 @@
  * Plugin Name: Minimal Coming Soon & Maintenance Mode
  * Plugin URI: https://comingsoonwp.com/
  * Description: Simply awesome coming soon & maintenance mode plugin. Super-simple to use. MailChimp support built-in.
- * Version: 2.39
+ * Version: 2.40
  * Requires at least: 4.0
  * Requires PHP: 5.2
  * Tested up to: 6.6
@@ -14,7 +14,7 @@
  *
  *
  * Minimal Coming Soon & Maintenance Mode Plugin
- * Copyright (C) 2016 - 2023, WebFactory Ltd - support@webfactoryltd.com
+ * Copyright (C) 2016 - 2024, WebFactory Ltd - support@webfactoryltd.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

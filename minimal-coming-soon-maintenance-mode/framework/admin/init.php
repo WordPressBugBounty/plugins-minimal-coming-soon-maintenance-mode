@@ -52,7 +52,7 @@ function csmm_admin_scripts()
     wp_register_style('csmm-admin-base', CSMM_URL . '/framework/admin/css/admin.css', false, csmm_get_plugin_version());
     wp_register_style('csmm-admin-swal', CSMM_URL . '/framework/admin/css/sweetalert2.min.css', false, csmm_get_plugin_version());
 
-    wp_register_script('csmm-webfonts', CSMM_URL . '/framework/admin/js/webfont.js', false);
+    wp_register_script('csmm-webfonts', CSMM_URL . '/framework/admin/js/webfont.js', false, csmm_get_plugin_version(), true);
     wp_register_script('csmm-admin-editor', CSMM_URL . '/framework/admin/js/editor/ace.js', false, csmm_get_plugin_version(), true);
     wp_register_script('csmm-admin-color', CSMM_URL . '/framework/admin/js/colorpicker/jscolor.js', false, csmm_get_plugin_version(), true);
     wp_register_script('csmm-admin-plugins', CSMM_URL . '/framework/admin/js/plugins.js', 'jquery', csmm_get_plugin_version(), true);
@@ -122,8 +122,12 @@ function csmm_dismiss_pointer_ajax()
 {
     check_ajax_referer('csmm_dismiss_pointer');
 
+    if(!isset($_POST['pointer'])){
+        wp_send_json_error();
+    }
+
     $disabled_pointers = get_option(CSMM_POINTERS);
-    $pointer = trim(sanitize_key($_POST['pointer']));
+    $pointer = trim(sanitize_key(wp_unslash($_POST['pointer'])));
 
     $disabled_pointers[$pointer] = true;
     update_option(CSMM_POINTERS, $disabled_pointers);
@@ -244,12 +248,17 @@ function csmm_activate_theme()
         wp_die('You don\'t have privileges to run this action.');
     }
 
-    if (false == wp_verify_nonce(@$_GET['_wpnonce'], 'csmm_activate_theme')) {
+    if (!isset($_GET['_wpnonce']) || false == wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'csmm_activate_theme')) {
         wp_die('Please click back, reload the page and try to activate the theme again.');
     }
 
     $themes = array();
-    $theme = sanitize_text_field(trim(@$_GET['theme']));
+
+    if (!isset($_GET['theme'])) {
+        wp_die('Unknown theme');
+    }
+
+    $theme = sanitize_text_field(wp_unslash($_GET['theme']));
     $settings = csmm_get_options();
 
     $themes['default'] = array(
@@ -353,7 +362,7 @@ function csmm_activate_theme()
     }
 
     if (!empty($_GET['redirect'])) {
-        wp_safe_redirect(esc_url($_GET['redirect']));
+        wp_safe_redirect(sanitize_url(wp_unslash($_GET['redirect'])));
     } else {
         wp_safe_redirect(admin_url());
     }

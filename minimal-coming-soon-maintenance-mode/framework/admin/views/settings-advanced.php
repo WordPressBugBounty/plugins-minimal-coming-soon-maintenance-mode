@@ -61,7 +61,7 @@ if (!defined('WPINC')) {
 				<textarea name="signals_csmm_html" id="signals_csmm_html" rows="8" placeholder="<?php esc_attr_e( 'Custom HTML for the plugin', 'minimal-coming-soon-maintenance-mode' ); ?>"><?php echo esc_textarea(stripslashes( $signals_csmm_options['custom_html'] )); ?></textarea>
 
 				<p class="signals-form-help-block"><?php echo esc_html__( 'Custom HTML for the plugin goes over here. Please note that ', 'minimal-coming-soon-maintenance-mode' ) . '<i style="color: #f96773">' . esc_html__( '[html], [head], [title], [meta], [body], and similar tags', 'minimal-coming-soon-maintenance-mode' ) . '</i>' . esc_html__( ' are not required. Only provide content HTML for the page.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
-				<p class="signals-form-help-block"><?php esc_attr_e( 'To insert subscription form anywhere in the HTML, simply use the placeholder <strong>{{form}}</strong> and you are done. This should only be used if you have enabled the above option to use custom HTML only.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
+				<p class="signals-form-help-block"><?php CSMM::wp_kses_wf( 'To insert subscription form anywhere in the HTML, simply use the placeholder <strong>{{form}}</strong> and you are done. This should only be used if you have enabled the above option to use custom HTML only.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
 			</div>
 
 			<div class="signals-form-group">

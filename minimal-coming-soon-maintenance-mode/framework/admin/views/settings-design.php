@@ -32,7 +32,7 @@ if (!defined('WPINC')) {
             <span class="signals-preview-area"><?php esc_attr_e( 'Select an image or upload a new one', 'minimal-coming-soon-maintenance-mode' ); ?></span>
             <?php endif; ?>
 
-            <input type="hidden" name="signals_csmm_logo" id="signals_csmm_logo" value="<?php esc_attr_e( $signals_csmm_options['logo'] ); ?>">
+            <input type="hidden" name="signals_csmm_logo" id="signals_csmm_logo" value="<?php echo esc_attr( $signals_csmm_options['logo'] ); ?>">
             <button type="button" name="signals_logo_upload" id="signals_logo_upload" class="signals-btn signals-upload"
               style="margin-top: 4px"><?php esc_attr_e( 'Select', 'minimal-coming-soon-maintenance-mode' ); ?></button>
 
@@ -55,7 +55,7 @@ if (!defined('WPINC')) {
             <?php endif; ?>
 
             <input type="hidden" name="signals_csmm_favicon" id="signals_csmm_favicon"
-              value="<?php esc_attr_e( $signals_csmm_options['favicon'] ); ?>">
+              value="<?php echo esc_attr( $signals_csmm_options['favicon'] ); ?>">
             <button type="button" name="signals_favicon_upload" id="signals_favicon_upload" class="signals-btn signals-upload"
               style="margin-top: 4px"><?php esc_attr_e( 'Select', 'minimal-coming-soon-maintenance-mode' ); ?></button>
 
@@ -85,7 +85,7 @@ if (!defined('WPINC')) {
 						}
 						?>
 
-            <input type="hidden" name="signals_csmm_bg" id="signals_csmm_bg" value="<?php esc_attr_e( $signals_csmm_options['bg_cover'] ); ?>">
+            <input type="hidden" name="signals_csmm_bg" id="signals_csmm_bg" value="<?php echo esc_attr( $signals_csmm_options['bg_cover'] ); ?>">
             <button type="button" name="signals_bg_upload" id="signals_bg_upload"
               class="signals-btn signals-upload <?php echo $bgupload?'':'signals-upload-bg'; ?>"
               style="margin-top: 4px"><?php esc_attr_e( 'Select', 'minimal-coming-soon-maintenance-mode' ); ?></button>
@@ -155,7 +155,7 @@ if (!defined('WPINC')) {
         <div class="signals-form-group">
           <label for="signals_csmm_width" class="signals-strong"><?php esc_attr_e( 'Content Width (in px)', 'minimal-coming-soon-maintenance-mode' ); ?></label>
           <input style="width: 80px;" type="number" name="signals_csmm_width" id="signals_csmm_width"
-            value="<?php esc_attr_e( $signals_csmm_options['content_width'] ); ?>"
+            value="<?php echo esc_attr( $signals_csmm_options['content_width'] ); ?>"
             placeholder="<?php esc_attr_e( 'Set content width for the page', 'minimal-coming-soon-maintenance-mode' ); ?>" class="signals-form-control">
 
           <p class="signals-form-help-block">
@@ -165,7 +165,7 @@ if (!defined('WPINC')) {
 
         <div class="signals-form-group">
           <label for="signals_csmm_color" class="signals-strong"><?php esc_attr_e( 'Background Color', 'minimal-coming-soon-maintenance-mode' ); ?></label>
-          <input type="text" name="signals_csmm_color" id="signals_csmm_color" value="<?php esc_attr_e( $signals_csmm_options['bg_color'] ); ?>"
+          <input type="text" name="signals_csmm_color" id="signals_csmm_color" value="<?php echo esc_attr( $signals_csmm_options['bg_color'] ); ?>"
             placeholder="<?php esc_attr_e( 'Background color for the page', 'minimal-coming-soon-maintenance-mode' ); ?>" class="jscolor signals-form-control color {required:false}">
 
           <p class="signals-form-help-block">
@@ -367,7 +367,7 @@ array('val' => '-1', 'label' => '&nbsp;rollIn'));
         <div class="signals-form-group">
           <label for="signals_csmm_header_color" class="signals-strong"><?php esc_attr_e( 'Header Text Color', 'minimal-coming-soon-maintenance-mode' ); ?></label>
           <input type="text" name="signals_csmm_header_color" id="signals_csmm_header_color"
-            value="<?php esc_attr_e( $signals_csmm_options['header_font_color'] ); ?>"
+            value="<?php echo esc_attr( $signals_csmm_options['header_font_color'] ); ?>"
             placeholder="<?php esc_attr_e( 'Font color for the Header text', 'minimal-coming-soon-maintenance-mode' ); ?>" class="jscolor signals-form-control color {required:false}">
 
           <p class="signals-form-help-block"><?php esc_attr_e( 'Select font color for the header text.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
@@ -376,7 +376,7 @@ array('val' => '-1', 'label' => '&nbsp;rollIn'));
         <div class="signals-form-group">
           <label for="signals_csmm_secondary_color" class="signals-strong"><?php esc_attr_e( 'Content Text Color', 'minimal-coming-soon-maintenance-mode' ); ?></label>
           <input type="text" name="signals_csmm_secondary_color" id="signals_csmm_secondary_color"
-            value="<?php esc_attr_e( $signals_csmm_options['secondary_font_color'] ); ?>"
+            value="<?php echo esc_attr( $signals_csmm_options['secondary_font_color'] ); ?>"
             placeholder="<?php esc_attr_e( 'Font color for the content text', 'minimal-coming-soon-maintenance-mode' ); ?>" class="jscolor signals-form-control color {required:false}">
 
           <p class="signals-form-help-block"><?php esc_attr_e( 'Select font color for the content text.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
@@ -404,7 +404,7 @@ array('val' => '-1', 'label' => '&nbsp;rollIn'));
         <div class="signals-form-group">
           <label for="signals_csmm_antispam_color" class="signals-strong"><?php esc_attr_e( 'Antispam Text Color', 'minimal-coming-soon-maintenance-mode' ); ?></label>
           <input type="text" name="signals_csmm_antispam_color" id="signals_csmm_antispam_color"
-            value="<?php esc_attr_e( $signals_csmm_options['antispam_font_color'] ); ?>"
+            value="<?php echo esc_attr( $signals_csmm_options['antispam_font_color'] ); ?>"
             placeholder="<?php esc_attr_e( 'Font color for the Antispam text', 'minimal-coming-soon-maintenance-mode' ); ?>" class="jscolor signals-form-control color {required:false}">
 
           <p class="signals-form-help-block"><?php esc_attr_e( 'Select font color for the antispam text.', 'minimal-coming-soon-maintenance-mode' ); ?></p>

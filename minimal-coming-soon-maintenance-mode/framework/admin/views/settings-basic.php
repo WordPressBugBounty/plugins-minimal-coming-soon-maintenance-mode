@@ -46,8 +46,15 @@ if (!defined('WPINC')) {
         <div class="signals-form-group">
           <label for="signals_ip_whitelist" class="signals-strong pro-option">IP Whitelisting <sup>PRO</sup></label>
 
-          <textarea rows="2" class="skip-save pro-option" disabled="disabled" name="signals_ip_whitelist" id="signals_ip_whitelist" ><?php esc_attr_e( $signals_csmm_options['signals_ip_whitelist'] ); ?></textarea>
-          <p class="signals-form-help-block">Listed IPs will not be affected by the coming soon mode and their users will see the "normal" site. Write one IP per line. If the user's IP changes he will no longer be whitelisted. Your IP address is: <?php esc_attr_e($_SERVER['REMOTE_ADDR']); ?> This is a <a href="#pro" class="csmm-change-tab">PRO feature</a>.</p>
+          <textarea rows="2" class="skip-save pro-option" disabled="disabled" name="signals_ip_whitelist" id="signals_ip_whitelist" ><?php echo esc_attr( $signals_csmm_options['signals_ip_whitelist'] ); ?></textarea>
+          <?php
+          if(isset($_SERVER['REMOTE_ADDR'])){
+            $remote_address = sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR']));
+          } else {
+            $remote_address = '';
+          }
+          ?>
+          <p class="signals-form-help-block">Listed IPs will not be affected by the coming soon mode and their users will see the "normal" site. Write one IP per line. If the user's IP changes he will no longer be whitelisted. Your IP address is: <?php echo esc_attr($remote_address); ?> This is a <a href="#pro" class="csmm-change-tab">PRO feature</a>.</p>
         </div>
       </div>
 
@@ -70,14 +77,14 @@ if (!defined('WPINC')) {
 			<div class="signals-double-group signals-clearfix">
 				<div class="signals-form-group">
 					<label for="signals_csmm_antispam" class="signals-strong"><?php esc_attr_e( 'Anti Spam Text', 'minimal-coming-soon-maintenance-mode' ); ?></label>
-					<input type="text" name="signals_csmm_antispam" id="signals_csmm_antispam" value="<?php echo esc_attr_e( stripslashes( $signals_csmm_options['antispam_text'] ) ); ?>" placeholder="<?php esc_attr_e( 'Please provide a Anti-spam Text', 'minimal-coming-soon-maintenance-mode' ); ?>" class="signals-form-control">
+					<input type="text" name="signals_csmm_antispam" id="signals_csmm_antispam" value="<?php echo esc_attr( stripslashes( $signals_csmm_options['antispam_text'] ) ); ?>" placeholder="<?php esc_attr_e( 'Please provide a Anti-spam Text', 'minimal-coming-soon-maintenance-mode' ); ?>" class="signals-form-control">
 
 					<p class="signals-form-help-block"><?php esc_attr_e( 'Provide anti-spam text for the maintenance page.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
 				</div>
 
         <div class="signals-form-group">
 					<label for="signals_csmm_custom_login" class="signals-strong"><?php esc_attr_e( 'Custom login URL', 'minimal-coming-soon-maintenance-mode' ); ?></label>
-					<input type="text" name="signals_csmm_custom_login" id="signals_csmm_custom_login" value="<?php echo esc_attr_e( $signals_csmm_options['custom_login_url'] ); ?>" placeholder="<?php esc_attr_e( 'Custom login URL', 'minimal-coming-soon-maintenance-mode' ); ?>" class="signals-form-control">
+					<input type="text" name="signals_csmm_custom_login" id="signals_csmm_custom_login" value="<?php echo esc_attr( $signals_csmm_options['custom_login_url'] ); ?>" placeholder="<?php esc_attr_e( 'Custom login URL', 'minimal-coming-soon-maintenance-mode' ); ?>" class="signals-form-control">
 
 					<p class="signals-form-help-block"><?php esc_attr_e( 'In case you\'re using a plugin that customizes the default WP login URL, enter that URL above.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
 				</div>
@@ -139,7 +146,7 @@ if (!defined('WPINC')) {
         echo '</ul></div>';
         ?>
 
-        <input type="hidden" name="signals_csmm_arrange" id="signals_csmm_arrange" value="<?php echo esc_attr_e( $signals_csmm_options['arrange'] ); ?>">
+        <input type="hidden" name="signals_csmm_arrange" id="signals_csmm_arrange" value="<?php echo esc_attr( $signals_csmm_options['arrange'] ); ?>">
 
 </div>
 

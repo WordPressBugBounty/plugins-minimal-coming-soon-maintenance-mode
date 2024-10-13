@@ -19,18 +19,24 @@ if (!defined('WPINC')) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo esc_html($options['title']); ?></title>
-    <?php if (!empty($options['favicon'])) : ?>
+    <?php if (!empty($options['favicon'])){ ?>
         <link rel="shortcut icon" href="<?php echo esc_url($options['favicon']); ?>" />
-    <?php endif; ?>
+    <?php } ?>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
     <link rel="alternate" type="application/atom+xml" title="<?php bloginfo('name'); ?> Atom Feed" href="<?php bloginfo('atom_url'); ?>" />
-    <link rel="pingback" href="<?php esc_url(bloginfo('pingback_url')); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo esc_url(CSMM_URL); ?>/framework/public/css/basic.css" />
+    <?php if (!empty(get_bloginfo('pingback_url'))){ ?>
+        <link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">
+    <?php } ?>
+
+    <?php
+    //we don't want to call wp_head to load any other enqueued scripts or styles so we load it directly
+    echo '<link rel="stylesheet" type="text/css" href="' . esc_url(CSMM_URL) . '/framework/public/css/basic.css" />'; //phpcs:ignore
+    ?>
     <?php
         if(!in_array($options["header_font"], array('Arial','Helvetica','Georgia','Times New Roman','Tahoma','Verdana','Geneva')) || !in_array($options["secondary_font"], array('Arial','Helvetica','Georgia','Times New Roman','Tahoma','Verdana','Geneva'))){
+        echo '<script src="' . esc_url(CSMM_URL) . '/framework/admin/js/webfont.js"></script>'; //phpcs:ignore
         ?>
-        <script src='<?php echo esc_url(CSMM_URL) . '/framework/admin/js/webfont.js'; ?>'></script>
         <script>
             WebFont.load({
                 bunny: {
@@ -64,9 +70,9 @@ if (!defined('WPINC')) {
     if (!empty($custom_html) && false !== strpos($custom_html, '{{form}}')) {
         if (!empty($options['mailchimp_api']) && !empty($options['mailchimp_list'])) {
             // Checking if the form is submitted or not
-            if (isset($_POST['signals_email'])) {
+            if (isset($_POST['signals_email']) && isset($_POST['csmm_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['csmm_nonce'])), 'submit_csmm')) {
                 // Processing begins
-                $signals_email = strip_tags($_POST['signals_email']);
+                $signals_email = isset($_POST['signals_email'])?sanitize_email(wp_unslash($_POST['signals_email'])):'';
 
                 if ('' === $signals_email) {
                     $code         = 'danger';
@@ -114,8 +120,9 @@ if (!defined('WPINC')) {
             }
 
             $subscription_form .= '<form role="form" method="post">
-					<input type="text" name="signals_email" autocomplete="email" placeholder="' . esc_attr($options['input_text']) . '">
-					<input type="submit" name="submit" value="' . esc_attr($options['button_text']) . '">
+					<input type="text" name="signals_email" autocomplete="email" placeholder="' . esc_attr($options['input_text']) . '">';
+            $subscription_form .= wp_nonce_field('submit_csmm', 'csmm_nonce', true, false);
+			$subscription_form .= '<input type="submit" name="submit" value="' . esc_attr($options['button_text']) . '">
 				</form>';
             $subscription_form .= '</div>';
 

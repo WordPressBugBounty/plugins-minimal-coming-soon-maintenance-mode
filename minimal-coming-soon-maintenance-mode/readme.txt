@@ -4,7 +4,7 @@ Tags: coming soon, coming soon page, maintenance mode, coming soon mode, coming 
 Requires at least: 4.0
 Requires PHP: 5.2
 Tested up to: 6.6
-Stable tag: 2.39
+Stable tag: 2.40
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,6 +93,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.40 =
+* 2024-10-13
+* minor code fixes
 
 = 2.39 =
 * 2024-06-07

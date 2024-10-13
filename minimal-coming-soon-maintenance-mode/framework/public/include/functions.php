@@ -108,7 +108,13 @@ function csmm_check_referrer() {
 
 
 	// Checking for the crawler over here
-	if ( csmm_string_to_array( $_SERVER['HTTP_USER_AGENT'], $crawlers ) ) {
+    if(isset($_SERVER['HTTP_USER_AGENT'])){
+        $user_agent = sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT']));
+    } else {
+        $user_agent = '';
+    }
+
+	if ( csmm_string_to_array( $user_agent, $crawlers ) ) {
 		return true;
 	}
 

@@ -41,14 +41,15 @@ function csmm_plugin_init() {
 
 
 	// This is the server address of the current page
-	@$signals_server_url = $signals_protocol . '://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    
+    if(isset($_SERVER['HTTP_HOST']) && isset($_SERVER['REQUEST_URI'])){
+	    $signals_server_url = $signals_protocol . '://' . sanitize_url(wp_unslash($_SERVER['HTTP_HOST'])) . parse_url(sanitize_url(wp_unslash($_SERVER['REQUEST_URI'])), PHP_URL_PATH);
+    }
 	// Checking for the custom_login_url value
 	if ( empty( $signals_csmm_options['custom_login_url'] ) ) {
 		$signals_csmm_options['custom_login_url'] = NULL;
 	}
 
-    if(isset($_GET['preview_coming_soon']) && current_user_can('manage_options')){
+    if(isset($_GET['preview_coming_soon']) && isset($_GET['_wpnonce']) && current_user_can('manage_options') && wp_verify_nonce(sanitize_key(wp_unslash($_GET['_wpnonce'])), 'csmm_preview')){
         csmm_render_template( $signals_csmm_options );
     }
 
