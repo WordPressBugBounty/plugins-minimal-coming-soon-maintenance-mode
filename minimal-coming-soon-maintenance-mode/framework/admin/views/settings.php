@@ -55,7 +55,7 @@ require_once 'header.php';
             && (time() - $meta['first_install_gmt']) < $promo_delta && (time() - $meta['first_install_gmt']) > 3
         ) {
             echo '<div id="upsell-notice"><p>';
-            echo 'Minimal Coming Soon &amp; Maintenance Mode PRO features over 190 themes, advanced SEO options, content animations, Instagram filters, animated backgrounds and premium support.';
+            echo 'Minimal Coming Soon &amp; Maintenance Mode PRO features over 350 themes, advanced SEO options, content animations, Instagram filters, animated backgrounds and premium support.';
             echo '<br>We\'ve prepared a special <b>50% DISCOUNT</b>.</p>';
             echo '<p><a href="#pro" data-anchor="pricing-table" class="button button-flat csmm-change-tab">GET the 50% DISCOUNT NOW</a>';
             echo ' &nbsp; <a href="#" id="mm_welcome_cancel" style="color: white;"><small>I\'m not interested</small></a>';

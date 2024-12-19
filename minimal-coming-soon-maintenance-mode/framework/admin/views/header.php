@@ -43,6 +43,6 @@ if (!defined('WPINC')) {
         */
 ?>
 <div id="header-right">
-        <a href="#pro" class="csmm-change-tab">Get a lifetime <b>PRO</b> license<br>for only $39</a>
+        <a href="#pro" class="csmm-change-tab">Get a lifetime <b>PRO</b> license<br>for only $49</a>
       </div>
 		</div><!-- .signals-header -->

@@ -13,6 +13,7 @@ $config['custom_css'] = '#wf-flyout .csmm-icon .wff-icon img { max-width: 70%; }
 
 $config['menu_items'] = array(
   array('href' => '#pro', 'label' => 'Get Coming Soon PRO with 50% off', 'icon' => 'csmm.png', 'class' => 'csmm-icon accent csmm-change-tab'),
+  array('href' => 'https://getwpcaptcha.com/?ref=wpcaptcha-csmm', 'label' => 'Protect your site and block unwanted visitors', 'icon' => 'wp-captcha.png', 'class' => 'wpcaptcha-icon'),
   array('href' => 'https://wpforcessl.com/?ref=wff-csmm', 'label' => 'Fix all SSL problems &amp; monitor site in real-time', 'icon' => 'wp-ssl.png', 'class' => 'wpfssl-icon'),
   array('href' => 'https://wp301redirects.com/?ref=wff-csmm&coupon=50off', 'label' => 'Fix 2 most common SEO issues on WordPress', 'icon' => '301-logo.png', 'class' => 'wp301-icon'),
   array('href' => 'https://wpreset.com/?ref=wff-csmm&coupon=50off', 'target' => '_blank', 'label' => 'Get WP Reset PRO with 50% off', 'icon' => 'wp-reset.png'),

@@ -19,12 +19,12 @@ if (!defined('WPINC')) {
                 <tbody>
                     <tr>
                         <td>
-                            <h3>Yearly<br>PRO License</h3>
-                            <span>Pay only for the time you use the plugin</span>
+                            <h3>Lifetime<br>Personal License</h3>
+                            <span>For single site owners who like paying only once</span>
                         </td>
                         <td>
-                            <h3>Lifetime<br>PRO License</h3>
-                            <span>For single site owners who like paying only once</span>
+                            <h3>Lifetime<br>Team License</h3>
+                            <span>Perfect if you have more than one site</span>
                             <div class="corner-ribbon">Most<br>Popular</div>
                         </td>
                         <td>
@@ -33,13 +33,13 @@ if (!defined('WPINC')) {
                         </td>
                     </tr>
                     <tr>
-                        <td>Monthly / Yearly Payment</td>
+                        <td>One Time Payment</td>
                         <td>One Time Payment</td>
                         <td>One Time Payment</td>
                     </tr>
                     <tr>
                         <td>1 Personal or Client Site</td>
-                        <td>1 Personal or Client Site</td>
+                        <td>5 Personal or Client Sites (sites can be changed)</td>
                         <td>100 Client or Personal Sites (sites can be changed)</td>
                     </tr>
                     <tr>
@@ -53,19 +53,19 @@ if (!defined('WPINC')) {
                         <td>Advanced SEO Preview &amp; Anaylsis</td>
                     </tr>
                     <tr>
-                        <td>2.5+ Million Hi-Resolution Images</td>
-                        <td>2.5+ Million Hi-Resolution Images</td>
-                        <td>2.5+ Million Hi-Resolution Images</td>
+                        <td>5+ Million Hi-Resolution Images</td>
+                        <td>5+ Million Hi-Resolution Images</td>
+                        <td>5+ Million Hi-Resolution Images</td>
                     </tr>
                     <tr>
-                        <td>95+ PRO Templates</td>
-                        <td>95+ PRO Templates</td>
-                        <td>95+ PRO Templates</td>
+                        <td>170+ PRO Templates</td>
+                        <td>170+ PRO Templates</td>
+                        <td>170+ PRO Templates</td>
                     </tr>
                     <tr>
                         <td class="not-available">n/a</td>
                         <td class="not-available">n/a</td>
-                        <td><b>95+ Extra Agency Templates = 190+ Templates</b></td>
+                        <td><b>170+ Extra Agency Templates = 350+ Templates</b></td>
                     </tr>
                     <tr>
                         <td>Dashboard for managing sites &amp; licenses</td>
@@ -83,95 +83,28 @@ if (!defined('WPINC')) {
                         <td><b>Full Rebranding Rights</b></td>
                     </tr>
                     <tr>
-                        <td>1 Year/Month of Support &amp; Updates</td>
+                        <td>Lifetime Support &amp; Updates</td>
                         <td>Lifetime Support &amp; Updates</td>
                         <td>Lifetime Priority Support &amp; Updates</td>
                     </tr>
 
 
                     <tr>
-                        <?php
-                        $meta = csmm_get_meta();
-                        $promo_delta = HOUR_IN_SECONDS;
-                        $promo_delta2 = DAY_IN_SECONDS * 28;
-                        $new_prices = true;
-
-                        if ($new_prices) {
-                          ?>
-                          <td>
-                              <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-yearly/olduser/?monthly=true&plugin_info=CSMM+free" target="_blank">BUY NOW &RightArrow; 25% OFF<br><del>$7.99</del> $5.99<small> /month</small></a>
-                              <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                  100% No-Risk 7 Days Money Back Guarantee</span>
-                          </td>
-                          <td>
-                              <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-lifetime/newprice/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY NOW &RightArrow; 50% OFF<br><del>$79</del> $39</a>
-                              <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                  100% No-Risk 7 Days Money Back Guarantee</span>
-                          </td>
-                          <td>
-                              <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-agency-lifetime/newprices/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY NOW &RightArrow; 50% OFF<br><del>$199</del> $99</a>
-                              <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                  100% No-Risk 7 Days Money Back Guarantee</span>
-                          </td>
-                      <?php
-                        } elseif ((time() - $meta['first_install_gmt']) < $promo_delta) {
-                        ?>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-agency-lifetime/welcome/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY NOW - $60 OFF<br><del>$199</del> $139<br><span style="font-weight: normal;">Discount ends in <span class="mm-countdown" data-endtime="<?php echo esc_attr($meta['first_install_gmt'] + $promo_delta); ?>" style="">59 min</span></span></a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-lifetime/welcome/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY NOW - 25% OFF<br><del>$79</del> $59<br><span style="font-weight: normal;">Discount ends in <span class="mm-countdown" data-endtime="<?php echo esc_attr($meta['first_install_gmt'] + $promo_delta); ?>" style="">59 min</span></span></a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-yearly/welcome/?monthly=true&plugin_info=CSMM+free" target="_blank">BUY NOW - 25% OFF<br><del>$7.99</del> $5.99<small> /month</small><br><span style="font-weight: normal;">Discount ends in <span class="mm-countdown" data-endtime="<?php echo esc_attr($meta['first_install_gmt'] + $promo_delta); ?>" style="">59 min</span></span></a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                        <?php
-                        } elseif ((time() - $meta['first_install_gmt']) > $promo_delta2) {
-                        ?>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-agency-lifetime/olduser/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY NOW - $60 OFF<br><del>$199</del> $139</a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-lifetime/olduser/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY NOW - 25% OFF<br><del>$79</del> $59</a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-yearly/olduser/?monthly=true&plugin_info=CSMM+free" target="_blank">BUY NOW - 25% OFF<br><del>$7.99</del> $5.99<small> /month</small></a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                        <?php
-                        } else {
-                        ?>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-agency-lifetime/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY
-                                    NOW<br>$199</a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-lifetime/?wanted=0&plugin_info=CSMM+free" target="_blank">BUY
-                                    NOW<br>$79</a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                            <td>
-                                <a data-gumroad-single-product="true" class="promo-button go-to-license-key" href="https://gum.co/csmm-pro-yearly/olduser/?monthly=true&plugin_info=CSMM+free" target="_blank">BUY NOW - 25% OFF<br><del>$7.99</del> $5.99<small> /month</small></a>
-                                <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Gumroad<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
-                                    100% No-Risk 7 Days Money Back Guarantee</span>
-                            </td>
-                        <?php
-                        }
-                        ?>
+                      <td>
+                          <a class="promo-button" href="https://comingsoonwp.com/buy/?product=personal-ltd-free&ref=csmm+free" target="_blank">BUY NOW &RightArrow; 50% OFF<br><del>$99</del> $49 <small>LIFETIME LICENSE</small></a>or <a href="https://comingsoonwp.com/buy/?product=personal-monthly&ref=csmm+free" target="_blank">only $7.99 /month</a><br><br>
+                          <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Paddle<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
+                              100% No-Risk 7 Days Money Back Guarantee</span>
+                      </td>
+                      <td style="vertical-align: top;">
+                          <a class="promo-button" href="https://comingsoonwp.com/buy/?product=team-ltd-free&ref=csmm+free" target="_blank">BUY NOW &RightArrow; 50% OFF<br><del>$149</del> $79 <small>LIFETIME LICENSE</small></a>
+                          <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Paddle<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
+                              100% No-Risk 7 Days Money Back Guarantee</span>
+                      </td>
+                      <td style="vertical-align: top;">
+                          <a class="promo-button" href="https://comingsoonwp.com/buy/?product=agency-ltd-free&ref=csmm+free" target="_blank">BUY NOW &RightArrow; 50% OFF<br><del>$199</del> $99 <small>LIFETIME LICENSE</small></a>
+                          <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Paddle<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
+                              100% No-Risk 7 Days Money Back Guarantee</span>
+                      </td>
                     </tr>
                 </tbody>
             </table>
@@ -181,13 +114,13 @@ if (!defined('WPINC')) {
             <table id="features-table">
                 <tr>
                     <td>
-                        <div class="home-box"><span>150+ Pixel Perfect Themes</span>
+                        <div class="home-box"><span>350+ Pixel Perfect Themes</span>
                             <p>Professional, easily editable <a href="#themes" class="csmm-change-tab">themes</a> that fit and adjust to any brand will enable you
                                 to build a page for your online or offline business in minutes. 4 new themes are added every month.</p>
                         </div>
                     </td>
                     <td>
-                        <div class="home-box"><span>Over Two Million Premium HD Images</span>
+                        <div class="home-box"><span>Over Five Million Premium HD Images</span>
                             <p>Are you still googling for images? Good ones are costly, and others are low-res with watermarks? With our image library, the only
                                 thing you have to do is enter a search term and pick an image. Five seconds of work.</p>
                         </div>
