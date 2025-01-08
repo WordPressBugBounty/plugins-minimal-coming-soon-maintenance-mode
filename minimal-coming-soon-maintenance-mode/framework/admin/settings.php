@@ -140,7 +140,7 @@ function csmm_admin_settings() {
             'title'                 => isset($_POST['signals_csmm_title'])?wp_strip_all_tags(wp_unslash($_POST['signals_csmm_title'])):get_bloginfo('name') . ' is coming soon',
 			'description' 			=> isset($_POST['signals_csmm_description'])?wp_strip_all_tags(wp_unslash($_POST['signals_csmm_description'])):'We are doing some maintenance on our site. Please come back later.',
 			'header_text' 			=> isset($_POST['signals_csmm_header'])?wp_strip_all_tags(wp_unslash($_POST['signals_csmm_header'])):'Our site is coming soon',
-			'secondary_text' 		=> isset($_POST['signals_csmm_secondary'])?wp_strip_all_tags(wp_unslash($_POST['signals_csmm_secondary'], '<p><a><b><strong><i><br>')):'We are doing some maintenance on our site. It won\'t take long, we promise. Come back and visit us again in a few days. Thank you for your patience!',
+			'secondary_text' 		=> isset($_POST['signals_csmm_secondary'])?wp_kses_post(wp_unslash($_POST['signals_csmm_secondary'])):'We are doing some maintenance on our site. It won\'t take long, we promise. Come back and visit us again in a few days. Thank you for your patience!',
 			'antispam_text' 		=> isset($_POST['signals_csmm_antispam'])?wp_strip_all_tags(wp_unslash($_POST['signals_csmm_antispam'])):'And yes, we hate spam too!',
 			'custom_login_url' 		=> isset($_POST['signals_csmm_custom_login'])?wp_strip_all_tags(wp_unslash($_POST['signals_csmm_custom_login'])):'/login/',
 			'show_logged_in' 		=> $tmp_options['logged'],
