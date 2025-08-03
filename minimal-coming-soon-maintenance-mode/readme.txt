@@ -3,8 +3,8 @@ Contributors: WebFactory
 Tags: coming soon, coming soon page, maintenance mode, coming soon mode, coming soon builder
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.7
-Stable tag: 2.42
+Tested up to: 6.8
+Stable tag: 2.43
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,6 +93,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+= 2.43 =
+* 2025-08-03
+* updated Google Analytics code
+
 = 2.42 =
 * 2025-01-08
 * minor code fixes

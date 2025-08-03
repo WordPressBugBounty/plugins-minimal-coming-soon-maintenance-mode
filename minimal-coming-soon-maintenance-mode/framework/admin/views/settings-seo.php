@@ -48,9 +48,9 @@ if (!defined('WPINC')) {
     <div class="signals-double-group signals-clearfix">
       <div class="signals-form-group">
         <label for="signals_csmm_analytics" class="signals-strong">Google Analytics Tracking ID</label>
-        <input name="signals_csmm_analytics" id="signals_csmm_analytics" placeholder="UA-123456-99" value="<?php echo esc_attr( csmm_convert_ga($signals_csmm_options['analytics'])); ?>">
+        <input name="signals_csmm_analytics" id="signals_csmm_analytics" placeholder="G-123456789" value="<?php echo esc_attr( csmm_convert_ga($signals_csmm_options['analytics'])); ?>">
 
-        <p class="signals-form-help-block">Enter only the Google Analytics Profile ID, ie: UA-123456-99. You'll find it in the GA tracking code.</p>
+        <p class="signals-form-help-block">Enter the unique tracking ID found in your GA tracking profile settings to track visits to pages.</p>
       </div>
 
       <div class="signals-form-group">

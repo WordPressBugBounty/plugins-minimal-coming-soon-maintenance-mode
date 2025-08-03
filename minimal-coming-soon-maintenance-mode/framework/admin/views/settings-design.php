@@ -296,7 +296,7 @@ array('val' => '-1', 'label' => '&nbsp;rollIn'));
           </select>
 
           <h3><?php esc_attr_e( 'This is how the header font is going to look!', 'minimal-coming-soon-maintenance-mode' ); ?></h3>
-          <p class="signals-form-help-block"><?php esc_attr_e( 'Font for the header text. Listing a total of 668 Bunny web fonts.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
+          <p class="signals-form-help-block"><?php esc_attr_e( 'Font for the header text. Coming Soon Maintenance uses Bunny Fonts instead of Google fonts. Bunny Fonts is an open-source, privacy-first web font platform designed to put privacy back into the internet. With a zero-tracking and no-logging policy, Bunny Fonts helps you stay GDPR compliant.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
         </div>
 
         <div class="signals-form-group">
@@ -323,7 +323,7 @@ array('val' => '-1', 'label' => '&nbsp;rollIn'));
           </select>
 
           <h3><?php esc_attr_e( 'This is how the content font is going to look!', 'minimal-coming-soon-maintenance-mode' ); ?></h3>
-          <p class="signals-form-help-block"><?php esc_attr_e( 'Font for the content text. Listing a total of 668 Bunny web fonts.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
+          <p class="signals-form-help-block"><?php esc_attr_e( 'Font for the content text. Coming Soon Maintenance uses Bunny Fonts instead of Google fonts. Bunny Fonts is an open-source, privacy-first web font platform designed to put privacy back into the internet. With a zero-tracking and no-logging policy, Bunny Fonts helps you stay GDPR compliant.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
         </div>
       </div>
 
