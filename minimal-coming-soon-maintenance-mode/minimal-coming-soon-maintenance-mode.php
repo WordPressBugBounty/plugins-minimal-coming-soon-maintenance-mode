@@ -6,7 +6,7 @@
  * Version: 2.43
  * Requires at least: 4.0
  * Requires PHP: 5.2
- * Tested up to: 6.8
+ * Tested up to: 6.9
  * Author: WebFactory Ltd
  * Author URI: https://www.webfactoryltd.com/
  * License: GPLv3
