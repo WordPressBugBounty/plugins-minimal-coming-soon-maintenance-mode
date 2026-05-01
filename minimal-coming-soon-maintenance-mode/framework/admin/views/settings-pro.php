@@ -53,19 +53,19 @@ if (!defined('WPINC')) {
                         <td>Advanced SEO Preview &amp; Anaylsis</td>
                     </tr>
                     <tr>
-                        <td>5+ Million Hi-Resolution Images</td>
-                        <td>5+ Million Hi-Resolution Images</td>
-                        <td>5+ Million Hi-Resolution Images</td>
+                        <td>7+ Million Hi-Resolution Images</td>
+                        <td>7+ Million Hi-Resolution Images</td>
+                        <td>7+ Million Hi-Resolution Images</td>
                     </tr>
                     <tr>
-                        <td>170+ PRO Templates</td>
-                        <td>170+ PRO Templates</td>
-                        <td>170+ PRO Templates</td>
+                        <td>190+ PRO Templates</td>
+                        <td>190+ PRO Templates</td>
+                        <td>190+ PRO Templates</td>
                     </tr>
                     <tr>
                         <td class="not-available">n/a</td>
                         <td class="not-available">n/a</td>
-                        <td><b>170+ Extra Agency Templates = 350+ Templates</b></td>
+                        <td><b>190+ Extra Agency Templates = 450+ Templates</b></td>
                     </tr>
                     <tr>
                         <td>Dashboard for managing sites &amp; licenses</td>
@@ -91,7 +91,7 @@ if (!defined('WPINC')) {
 
                     <tr>
                       <td>
-                          <a class="promo-button" href="https://comingsoonwp.com/buy/?product=personal-ltd-free&ref=csmm+free" target="_blank">BUY NOW &RightArrow; 50% OFF<br><del>$99</del> $49 <small>LIFETIME LICENSE</small></a>or <a href="https://comingsoonwp.com/buy/?product=personal-monthly&ref=csmm+free" target="_blank">only $7.99 /month</a><br><br>
+                          <a class="promo-button" href="https://comingsoonwp.com/buy/?product=personal-ltd-free&ref=csmm+free" target="_blank">BUY NOW &RightArrow; 50% OFF<br><del>$99</del> $49 <small>LIFETIME LICENSE</small></a>
                           <span class="instant-download"><span class="dashicons dashicons-yes"></span> Secure payment via Paddle<br><span class="dashicons dashicons-yes"></span> Instant activation from WordPress admin<br><span class="dashicons dashicons-yes"></span>
                               100% No-Risk 7 Days Money Back Guarantee</span>
                       </td>
@@ -114,13 +114,13 @@ if (!defined('WPINC')) {
             <table id="features-table">
                 <tr>
                     <td>
-                        <div class="home-box"><span>350+ Pixel Perfect Themes</span>
+                        <div class="home-box"><span>450+ Pixel Perfect Themes</span>
                             <p>Professional, easily editable <a href="#themes" class="csmm-change-tab">themes</a> that fit and adjust to any brand will enable you
                                 to build a page for your online or offline business in minutes. 4 new themes are added every month.</p>
                         </div>
                     </td>
                     <td>
-                        <div class="home-box"><span>Over Five Million Premium HD Images</span>
+                        <div class="home-box"><span>Over Seven Million Premium HD Images</span>
                             <p>Are you still googling for images? Good ones are costly, and others are low-res with watermarks? With our image library, the only
                                 thing you have to do is enter a search term and pick an image. Five seconds of work.</p>
                         </div>

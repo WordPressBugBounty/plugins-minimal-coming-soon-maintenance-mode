@@ -95,7 +95,9 @@ function csmm_load_scripts()
 function csmm_plugin_action_links($links)
 {
     $settings_link = '<a href="' . admin_url('options-general.php?page=maintenance_mode_options') . '" title="Minimal Coming Soon &amp; Maintenance Mode Settings">Settings</a>';
+    $pro_link = '<a href="' . admin_url('options-general.php?page=maintenance_mode_options#pro') . '" title="Get the PRO version"><b>Get PRO</b></a>';
 
+    array_unshift($links, $pro_link);
     array_unshift($links, $settings_link);
 
     return $links;

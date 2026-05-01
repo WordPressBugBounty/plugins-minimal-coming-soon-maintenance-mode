@@ -3,8 +3,8 @@ Contributors: WebFactory
 Tags: coming soon, coming soon page, maintenance mode, coming soon mode, coming soon builder
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.9
-Stable tag: 2.43
+Tested up to: 7.0
+Stable tag: 2.44
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ The <a href="https://comingsoonwp.com/">Minimal Coming Soon & Maintenance Mode</
 
 Minimal Coming Soon plugin is simple & flexible and works with any WordPress theme & plugin. You'll have full control over the frontend of the website and can modify almost every aspect of the Coming Soon or Maintenance Mode page per your needs. Easily connect with MailChimp API so that you can **collect emails** from visitors and it's fully GDPR compliant. A perfect Coming Soon Page done in minutes!
 
-Having **problems with SSL**? Moving a site from HTTP to HTTPS? Install our free <a href="https://wordpress.org/plugins/wp-force-ssl/">WP Force SSL</a> plugin. It’s a great way to fix all SSL problems.
+**Having problems with spam, bots, or AI scrapers? Have a look at our <a href="https://wordpress.org/plugins/advanced-google-recaptcha/">free Captcha plugin</a> used on over 200,000 sites.**
 
 [youtube https://www.youtube.com/watch?v=ux4Qj46pihg]
 
@@ -23,10 +23,10 @@ You can collect leads and subscribers on your Coming Soon Page via the Mailchimp
 
 = Coming Soon Plugin Features =
 
-* Check out <a href="https://comingsoonwp.com/themes/">350+ themes</a> that come with the PRO version, <a href="https://comingsoonwp.com/image-filters/">26+ Instagram filters</a> and <a href="https://comingsoonwp.com/content-animations/">47+ spectacular content animations</a> for Coming Soon Pages
+* Check out <a href="https://comingsoonwp.com/themes/">450+ themes</a> that come with the PRO version, <a href="https://comingsoonwp.com/image-filters/">26+ Instagram filters</a> and <a href="https://comingsoonwp.com/content-animations/">47+ spectacular content animations</a> for Coming Soon Pages
 * Works with all WordPress themes and plugins
 * Completely customizable look and feel including background color, cover image, fonts, logo
-* Includes <a href="https://comingsoonwp.com/">over five million premium images</a> in PRO version
+* Includes <a href="https://comingsoonwp.com/">over seven million premium images</a> in PRO version
 * Each and every element of the Coming Soon or maintenance page can be configured
 * Option to preview the Coming Soon or maintenance page before activation
 * <a href="https://comingsoonwp.com/">SEO preview and analysis tools</a> are available in the PRO version to make sure your coming soon site ranks as #1 from day zero
@@ -93,6 +93,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+= 2.44 =
+* 2026-05-01
+* minor fixes
+
 = 2.43 =
 * 2025-08-03
 * updated Google Analytics code
