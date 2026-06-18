@@ -76,10 +76,20 @@ if (!defined('WPINC')) {
 
 			<div class="signals-double-group signals-clearfix">
 				<div class="signals-form-group">
-					<label for="signals_csmm_antispam" class="signals-strong"><?php esc_attr_e( 'Anti Spam Text', 'minimal-coming-soon-maintenance-mode' ); ?></label>
-					<input type="text" name="signals_csmm_antispam" id="signals_csmm_antispam" value="<?php echo esc_attr( stripslashes( $signals_csmm_options['antispam_text'] ) ); ?>" placeholder="<?php esc_attr_e( 'Please provide a Anti-spam Text', 'minimal-coming-soon-maintenance-mode' ); ?>" class="signals-form-control">
+					<label for="signals_csmm_antispam" class="signals-strong"><?php esc_attr_e( '
+Multilingual Support', 'minimal-coming-soon-maintenance-mode' ); ?></label>
 
-					<p class="signals-form-help-block"><?php esc_attr_e( 'Provide anti-spam text for the maintenance page.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
+					<p class="signals-form-help-block">
+          <?php
+          if (csmm_is_weglot_active()) {
+            echo '<a class="signals-btn" href="' . admin_url('admin.php?page=weglot-settings') . '">Configure multilingual options</a>';
+            echo '<br>Open Weglot setting to configure which languages your site is available in and automatically translate.';
+          } else {
+            echo '<a class="signals-btn open-weglot-upsell" href="#">Enable multilingual support</a>';
+            echo '<br>55% of online visitors prefer to browse in their mother tongue. If you have an audience speaking multiple languages, making your website multilingual is a must-have. To instantly translate your website and your under construction page, <a href="#" class="open-weglot-upsell">install the Weglot plugin</a> (free plan and free trial available).';
+          }
+          ?>
+          </p>
 				</div>
 
         <div class="signals-form-group">
@@ -98,6 +108,13 @@ if (!defined('WPINC')) {
 
           <p class="signals-form-help-block"><?php esc_attr_e( 'Show a discrete link to the login form, or WP admin if you\'re logged in, in the lower right corner of the page.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
         </div>
+
+        <div class="signals-form-group">
+					<label for="signals_csmm_antispam" class="signals-strong"><?php esc_attr_e( 'Anti Spam Text', 'minimal-coming-soon-maintenance-mode' ); ?></label>
+					<input type="text" name="signals_csmm_antispam" id="signals_csmm_antispam" value="<?php echo esc_attr( stripslashes( $signals_csmm_options['antispam_text'] ) ); ?>" placeholder="<?php esc_attr_e( 'Please provide a Anti-spam Text', 'minimal-coming-soon-maintenance-mode' ); ?>" class="signals-form-control">
+
+					<p class="signals-form-help-block"><?php esc_attr_e( 'Provide anti-spam text for the maintenance page.', 'minimal-coming-soon-maintenance-mode' ); ?></p>
+				</div>
       </div>
 
       <div class="signals-form-group signals-clearfix">

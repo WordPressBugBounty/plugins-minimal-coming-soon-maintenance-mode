@@ -62,6 +62,8 @@ function csmm_admin_scripts()
         'mm_url' => CSMM_URL . '/framework/public/img/backgrounds/',
         'mm_base_url' => CSMM_URL,
         'mm_notice_nonce' => wp_create_nonce('csmm_notice_nonce'),
+        'weglot_dialog_upsell_title' => '<img alt="' . esc_attr__('Weglot', 'minimal-coming-soon-maintenance-mode') . '" title="' . esc_attr__('Weglot', 'minimal-coming-soon-maintenance-mode') . '" src="' . CSMM_URL . '/framework/admin/img/weglot-logo-white.png' . '">',
+        'weglot_install_url' => add_query_arg(array('action' => 'csmm_install_weglot', '_wpnonce' => wp_create_nonce('install_weglot')), admin_url('admin.php')),
         'mm_images' => array('ad_themes.png', 'joshua-coleman-1476380-unsplash.jpg', 'joshua-coleman-623077-unsplash.jpg', 'samuel-zeller-379406-unsplash.jpg', 'ad_more-images.png', 'william-daigneault-733670-unsplash.jpg', 'yuriy-bogdanov-428617-unsplash.jpg', 'john-cobb-13961-unsplash.jpg', 'aaron-burden-189321-unsplash.jpg', 'alberto-restifo-4510-unsplash.jpg', 'ad_custom-image.png', 'amy-humphries-227515-unsplash.jpg', 'anders-jilden-89745-unsplash.jpg', 'art-by-lonfeldt-1064207-unsplash.jpg', 'brenda-godinez-229718-unsplash.jpg', 'ad_more-images.png', 'brooke-lark-229136-unsplash.jpg', 'carmine-de-fazio-31543-unsplash.jpg', 'chuttersnap-Dfay_PcHm-E-unsplash.jpg', 'corentin-hais-NE6cZGd_A_A-unsplash.jpg', 'denys-nevozhai-100695-unsplash.jpg', 'dustin-lee-19667-unsplash.jpg', 'elena-prokofyeva-17909-unsplash.jpg', 'fezbot2000-278419-unsplash.jpg', 'glenn-carstens-peters-190592-unsplash.jpg', 'greg-rakozy-38802-unsplash.jpg', 'henry-be-99471-unsplash.jpg', 'hoach-le-dinh-91879-unsplash.jpg', 'ian-dooley-280928-unsplash.jpg', 'ian-schneider-108618-unsplash.jpg', 'jakub-sejkora-42069-unsplash.jpg', 'jesus-kiteque-224069-unsplash.jpg', 'joanna-kosinska-44214-unsplash.jpg', 'jonathan-bean-37632-unsplash.jpg', 'ad_themes.png', 'kimon-maritz-193428-unsplash.jpg', 'matthew-henry-49707-unsplash.jpg', 'ng-32703-unsplash.jpg', 'nitish-meena-37745-unsplash.jpg', 'osman-rana-1064081-unsplash.jpg', 'patrick-tomasso-208114-unsplash.jpg', 'patrick-tomasso-71909-unsplash.jpg', 'pawel-czerwinski-1060762-unsplash.jpg', 'pawel-czerwinski-UN308c8fwEo-unsplash.jpg', 'rachael-gorjestani-282049-unsplash.jpg', 'rawpixel-191102-unsplash.jpg', 'sarah-dorweiler-211779-unsplash.jpg', 'stefan-stefancik-105374-unsplash.jpg', 'steven-wei-124690-unsplash.jpg', 'sunrise-1756274.jpg', 'teddy-kelley-106391-unsplash.jpg', 'thought-catalog-214785-unsplash.jpg', 'ad_custom-image.png', 'brooke-lark-356767-unsplash.jpg', 'ian-dooley-280928-unsplash.jpg', 'jeremy-bishop-334996-unsplash.jpg', 'martin-reisch-185835-unsplash.jpg', 'simon-matzinger-320332-unsplash.jpg', 'trevor-cole-393228-unsplash.jpg', 'verne-ho-237626-unsplash.jpg', 'ad_more-images.png', 'annie-spratt-1369965-unsplash.jpg', 'jonathan-borba-1339221-unsplash.jpg', 'lana-guillemet-1373193-unsplash.jpg', 'nazar-sharafutdinov-1373782-unsplash.jpg', 'pawel-czerwinski-1373010-unsplash.jpg', 'fancycrave-284224-unsplash.jpg', 'joshua-coleman-1394520-unsplash.jpg', 'robert-bye-103196-unsplash.jpg', 'tim-patch-1020411-unsplash.jpg', 'ad_custom-image.png', 'william-daigneault-691488-unsplash.jpg', 'marek-piwnicki-ka-wH-JbnDA-unsplash.jpg', 'manuel-venturini-38cyDa5x7qU-unsplash.jpg', 'luca-micheli-mZ4RmsyCGDg-unsplash.jpg'),
         'loader_image' => CSMM_URL . '/framework/admin/img/anim_logo.gif'
     );
@@ -209,6 +211,7 @@ function csmm_plugin_admin_init()
     add_action('admin_enqueue_scripts', 'csmm_enqueue_pointers', 100, 1);
 
     add_action('admin_action_csmm_activate_theme', 'csmm_activate_theme');
+    add_action('admin_action_csmm_install_weglot', 'csmm_install_weglot');
 } // csmm_plugin_admin_init
 
 add_action('init', 'csmm_plugin_admin_init');
@@ -371,3 +374,82 @@ function csmm_activate_theme()
 
     exit;
 } // activate_theme
+
+// check if Weglot plugin is active and min version installed
+function csmm_is_weglot_active()
+{
+    if (!function_exists('is_plugin_active') || !function_exists('get_plugin_data')) {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+
+    if (is_plugin_active('weglot/weglot.php')) {
+        $weglot_info = get_plugin_data(ABSPATH . 'wp-content/plugins/weglot/weglot.php');
+        if (version_compare($weglot_info['Version'], '2.5', '<')) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+} // csmm_is_weglot_active
+
+// auto download / install / activate Weglot plugin
+function csmm_install_weglot()
+{
+    check_ajax_referer('install_weglot');
+
+    if (false === current_user_can('administrator')) {
+        wp_die('Sorry, you have to be an admin to run this action.');
+    }
+
+    $plugin_slug = 'weglot/weglot.php';
+    $plugin_zip = 'https://downloads.wordpress.org/plugin/weglot.latest-stable.zip';
+
+    @include_once ABSPATH . 'wp-admin/includes/plugin.php';
+    @include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+    @include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+    @include_once ABSPATH . 'wp-admin/includes/file.php';
+    @include_once ABSPATH . 'wp-admin/includes/misc.php';
+    echo '<style>
+body{
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+}
+</style>';
+
+    echo '<div style="margin: 20px; color:#444;">';
+    echo 'If things are not done in a minute <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=weglot&tab=search&type=term')) . '">install the plugin manually via Plugins page</a><br><br>';
+    echo 'Starting ...<br><br>';
+
+    wp_cache_flush();
+    $upgrader = new Plugin_Upgrader();
+    echo 'Check if Weglot is already installed ... <br />';
+    if (csmm_is_plugin_installed($plugin_slug)) {
+        echo 'Weglot is already installed! <br /><br />Making sure it\'s the latest version.<br />';
+        $upgrader->upgrade($plugin_slug);
+        $installed = true;
+    } else {
+        echo 'Installing Weglot.<br />';
+        $installed = $upgrader->install($plugin_zip);
+    }
+    wp_cache_flush();
+
+    if (!is_wp_error($installed) && $installed) {
+        echo 'Activating Weglot.<br />';
+        $activate = activate_plugin($plugin_slug);
+
+        if (is_null($activate)) {
+            echo 'Weglot Activated.<br />';
+
+            echo '<script>setTimeout(function() { top.location = "options-general.php?page=maintenance_mode_options"; }, 1000);</script>';
+            echo '<br>If you are not redirected in a few seconds - <a href="options-general.php?page=maintenance_mode_options" target="_parent">click here</a>.';
+        }
+    } else {
+        echo 'Could not install Weglot. You\'ll have to <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=weglot&tab=search&type=term')) . '">download and install manually</a>.';
+    }
+
+    echo '</div>';
+} // csmm_install_weglot

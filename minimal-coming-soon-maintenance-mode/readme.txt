@@ -4,7 +4,7 @@ Tags: coming soon, coming soon page, maintenance mode, coming soon mode, coming 
 Requires at least: 4.0
 Requires PHP: 5.2
 Tested up to: 7.0
-Stable tag: 2.44
+Stable tag: 2.45
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,6 +16,8 @@ The <a href="https://comingsoonwp.com/">Minimal Coming Soon & Maintenance Mode</
 Minimal Coming Soon plugin is simple & flexible and works with any WordPress theme & plugin. You'll have full control over the frontend of the website and can modify almost every aspect of the Coming Soon or Maintenance Mode page per your needs. Easily connect with MailChimp API so that you can **collect emails** from visitors and it's fully GDPR compliant. A perfect Coming Soon Page done in minutes!
 
 **Having problems with spam, bots, or AI scrapers? Have a look at our <a href="https://wordpress.org/plugins/advanced-google-recaptcha/">free Captcha plugin</a> used on over 200,000 sites.**
+
+Thanks to our partnership with <a href="https://wordpress.org/plugins/weglot/">Weglot</a>, CSMM is fully multilanguage ready and you can instantly translate your coming soon page to 100+ languages with one click.
 
 [youtube https://www.youtube.com/watch?v=ux4Qj46pihg]
 
@@ -93,6 +95,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+= 2.45 =
+* 2026-06-18
+* added Weglot integration
+
 = 2.44 =
 * 2026-05-01
 * minor fixes
